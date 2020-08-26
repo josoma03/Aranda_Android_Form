@@ -1,11 +1,14 @@
 package com.aranda.pruebatest;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
-    private EditText txtDate;
+    private TextView txtDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,5 +46,26 @@ public class MainActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
+        Button buttonSave = findViewById(R.id.btnSave);
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
     }
+
+    public void showDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Guardar");
+        builder.setMessage("¿Está seguro de enviar la información?");
+
+        builder.setPositiveButton("Aceptar", null);
+        builder.setNegativeButton("Cancelar", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 }
