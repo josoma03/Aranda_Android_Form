@@ -54,6 +54,64 @@ public class MainActivityTest {
     }
 
     @Test
+    public void checkNombre() throws UiObjectNotFoundException {
+        UiObject txtNombre = device.findObject(new UiSelector().resourceId("com.aranda.pruebatest:id/txtName"));
+        Assert.assertTrue(txtNombre.exists());
+
+        txtNombre.setText("Juanita");
+    }
+
+    @Test
+    public void checkApellido() throws UiObjectNotFoundException {
+        UiObject txtApellido = device.findObject(new UiSelector().resourceId("com.aranda.pruebatest:id/txtApel"));
+        Assert.assertTrue(txtApellido.exists());
+
+        txtApellido.setText("Perez");
+    }
+
+    @Test
+    public void checkCorreElectronico() throws UiObjectNotFoundException {
+        UiObject txtControl = device.findObject(new UiSelector().resourceId("com.aranda.pruebatest:id/txtEmail"));
+        Assert.assertTrue(txtControl.exists());
+        if (isKeyboardOpened()) {
+            device.pressBack();
+        }
+        txtControl.setText("juanita.perez@arandasoft.com");
+    }
+
+    @Test
+    public void checkGenero() throws UiObjectNotFoundException {
+        if (isKeyboardOpened()) {
+            device.pressBack();
+        }
+        UiObject cmbGenero = device.findObject(new UiSelector().resourceId("com.aranda.pruebatest:id/txtGenero"));
+        Assert.assertTrue(cmbGenero.exists());
+        cmbGenero.click();
+
+        UiObject opcionFemenino = device.findObject(new UiSelector().index(1));
+        Assert.assertTrue(opcionFemenino.exists());
+        opcionFemenino.click();
+
+        if (isKeyboardOpened()) {
+            device.pressBack();
+        }
+
+        /*UiObject opcionMasculino = device.findObject(new UiSelector().index(2));
+        Assert.assertTrue(opcionMasculino.exists());
+        opcionMasculino.click();*/
+    }
+
+    @Test
+    public void checkFormulario() throws UiObjectNotFoundException {
+        checkNombre();
+        checkApellido();
+        checkCorreElectronico();
+        checkGenero();
+    }
+
+/*
+
+    @Test
     public void checkForm() throws UiObjectNotFoundException {
         Context context = ApplicationProvider.getApplicationContext();
 
@@ -124,7 +182,7 @@ public class MainActivityTest {
         txtSaveConfirm.click();
 
 
-    }
+    }*/
 
     boolean isKeyboardOpened() {
         for (AccessibilityWindowInfo window : InstrumentationRegistry.getInstrumentation().getUiAutomation().getWindows()) {
